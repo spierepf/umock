@@ -1,0 +1,9 @@
+{
+  "urls": [
+    ["unittest/mock.py", "github:spierepf/umock/mock.py"]
+  ],
+  "deps": [
+    ["unittest", "latest"]
+  ],
+  "version": "0.1"
+}
