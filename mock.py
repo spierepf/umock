@@ -1,6 +1,7 @@
 class Mock:
     def __init__(self):
         self._calls = []
+        self._children = {}
 
     def assert_not_called(self):
         assert len(self._calls) == 0
@@ -17,3 +18,8 @@ class Mock:
 
     def __call__(self, *args, **kwargs):
         self._calls.append((args, kwargs))
+
+    def __getattr__(self, item):
+        if item not in self._children:
+            self._children[item] = Mock()
+        return self._children[item]

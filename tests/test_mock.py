@@ -66,6 +66,12 @@ class MockTestCase(unittest.TestCase):
         mock(key2=arg2, key1=arg1)
         mock.assert_called_once_with(key1=arg1, key2=arg2)
 
+    def test_a_mock_object_will_create_new_mocks_to_support_method_calls(self):
+        mock = Mock()
+        mock.some_method.assert_not_called()
+        mock.some_method()
+        mock.some_method.assert_called_once_with()
+
 
 if __name__ == '__main__':
     unittest.main()
