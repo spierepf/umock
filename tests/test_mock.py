@@ -72,6 +72,16 @@ class MockTestCase(unittest.TestCase):
         mock.some_method()
         mock.some_method.assert_called_once_with()
 
+    def test_a_mock_object_will_return_a_constructor_specified_value_when_called(self):
+        value = object()
+        mock = Mock(return_value=value)
+        assert mock() == value
+
+    def test_a_mock_object_will_return_an_assigne_value_when_called(self):
+        value = object()
+        mock = Mock()
+        mock.return_value = value
+        assert mock() == value
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,5 +1,6 @@
 class Mock:
-    def __init__(self):
+    def __init__(self, return_value=None):
+        self.return_value = return_value
         self._calls = []
         self._children = {}
 
@@ -18,6 +19,7 @@ class Mock:
 
     def __call__(self, *args, **kwargs):
         self._calls.append((args, kwargs))
+        return self.return_value
 
     def __getattr__(self, item):
         if item not in self._children:
