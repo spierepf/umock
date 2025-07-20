@@ -11,11 +11,7 @@ class Mock:
         assert len(self._calls) == 1
 
     def assert_called_once_with(self, *args, **kwargs):
-        count = 0
-        for call in self._calls:
-            if call == (args, kwargs):
-                count += 1
-        assert count == 1
+        assert len(list(filter(lambda c: c == (args, kwargs), self._calls))) == 1
 
     def __call__(self, *args, **kwargs):
         self._calls.append((args, kwargs))
