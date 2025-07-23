@@ -77,11 +77,31 @@ class MockTestCase(unittest.TestCase):
         mock = Mock(return_value=value)
         assert mock() == value
 
-    def test_a_mock_object_will_return_an_assigne_value_when_called(self):
+    def test_a_mock_object_will_return_an_assigned_value_when_called(self):
         value = object()
         mock = Mock()
         mock.return_value = value
         assert mock() == value
+
+    def test_the_call_args_property_of_a_mock_object_that_has_not_been_called_is_none(self):
+        mock = Mock(return_value=None)
+        assert mock.call_args is None
+
+    def test_the_call_args_property_of_a_mock_object_that_has_been_called_with_no_args_is_empty_tuple(self):
+        mock = Mock(return_value=None)
+        mock()
+        assert mock.call_args == ()
+
+    def test_the_call_args_property_of_a_mock_object_that_has_been_called_with_positional_args(self):
+        mock = Mock(return_value=None)
+        mock(3, 4)
+        assert mock.call_args == ((3, 4),)
+
+    def test_the_call_args_property_of_a_mock_object_that_has_been_called_with_positional_and_keyword_args(self):
+        mock = Mock(return_value=None)
+        mock(3, 4, 5, key='fish', next='w00t!')
+        assert mock.call_args == ((3, 4, 5), {'key': 'fish', 'next': 'w00t!'})
+
 
 if __name__ == '__main__':
     unittest.main()

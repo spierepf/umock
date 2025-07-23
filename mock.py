@@ -3,6 +3,7 @@ class Mock:
         self.return_value = return_value
         self._calls = []
         self._children = {}
+        self.call_args = None
 
     def assert_not_called(self):
         assert len(self._calls) == 0
@@ -15,6 +16,14 @@ class Mock:
 
     def __call__(self, *args, **kwargs):
         self._calls.append((args, kwargs))
+        if kwargs == {}:
+            if args == ():
+                self.call_args = ()
+            else:
+                self.call_args = (args,)
+        else:
+            self.call_args = (args, kwargs)
+
         return self.return_value
 
     def __getattr__(self, item):
